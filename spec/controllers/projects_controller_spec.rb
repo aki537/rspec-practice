@@ -7,20 +7,30 @@ RSpec.describe ProjectsController, type: :controller do
       before do
         @user = FactoryBot.create(:user)
       end
-
-      #正常にレスポンスを返すこと
+      
+      #正常にレスポンする事(内容8バージョン)
       it "response successfully" do
         sign_in @user
         get :index
-        expect(response).to be_success
+        aggregate_failures do
+          expect(response).to be_success
+          expect(response).to have_http_status "200"
+        end
       end
-      
-      #200レスポンスを返すこと
-      it "returns a 200 response" do
-        sign_in @user
-        get :index
-        expect(response).to have_http_status "200"
-      end
+
+        # #正常にレスポンスを返すこと
+        # it "response successfully" do
+        #   sign_in @user
+        #   get :index
+        #   expect(response).to be_success
+        # end
+        
+        # #200レスポンスを返すこと
+        # it "returns a 200 response" do
+        #   sign_in @user
+        #   get :index
+        #   expect(response).to have_http_status "200"
+        # end
     end
   end
 
